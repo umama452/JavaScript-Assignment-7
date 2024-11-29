@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+    // Question 1
+    function demonstrateScoping() {
+    if (true) {
+        var varVariable = "I am a var variable, scoped to the function.";
+        let letVariable = "I am a let variable, scoped to the block.";
+        const constVariable = "I am a const variable, also scoped to the block.";
+    }
+
+    let explanation = `
+        varVariable: Accessible outside the block. Value: "${varVariable}" 
+            - Function scoped.
+
+        letVariable: Not accessible outside the block. 
+            - Block scoped.
+
+        constVariable: Not accessible outside the block. 
+            - Block scoped and cannot be reassigned.
+    `;
+
+    return explanation.trim();
+}
+
+console.log(demonstrateScoping());
+
+// Question 2
+
+function createMultiplier(multiplier) {
+    return function (number) {
+        return number * multiplier;
+    };
+}
+
+
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+
+console.log(double(5));
+console.log(double(10)); 
+
+console.log(triple(4));
+console.log(triple(7)); 
+
+
+// Question 3
+
+function Person({ name, age, country = "Unknown", city = "Unknown" }) {
+    return `Name: ${name}, Age: ${age}, Country: ${country}, City: ${city}`;
+}
+const per1 = { name: "Alice", age: 30, country: "USA", city: "New York" };
+const per2 = { name: "Bob", age: 25 };
+
+console.log(Person(per1));
+console.log(Person(per2)); 
+
+
+// Question 4
+function calculateTotal(price, ...discounts) {
+    for (let discount of discounts) {
+        price -= discount; 
+    }
+    return price; 
+}
+const discountedArray = [1, 8, 25];
+console.log(calculateTotal(200, ...discountedArray));
+
+
+// Question 5
+
+const Calculator = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+};
+
+console.log(Calculator.add(15, 34)); 
+console.log(Calculator.subtract(19, 15)); 
+
+// Question 6
+const books = [
+    { title: "To Kill a Mockingbird", author: "Harper Lee", yearPublished: 1960 },
+    { title: "1984", author: "George Orwell", yearPublished: 1949 },
+    { title: "The Great Gatsby", author: "F. Scott Fitzgerald", yearPublished: 1925 },
+    { title: "Pride and Prejudice", author: "Jane Austen", yearPublished: 1813 }
+];
+
+function BookInfo(booksArray) {
+    for (var book of booksArray) {
+        console.log(`"${book.title}" by ${book.author}, published in ${book.yearPublished}.`);
+    }
+}
+
+BookInfo(books);
+
+// Question 7
+function* idGenerator() {
+    let id = 1; 
+    while (true) {
+        yield id++;
+    }
+}
+
+const generator = idGenerator();
+console.log(generator.next().value); 
+console.log(generator.next().value); 
+console.log(generator.next().value); 
+
+
+
+// Question 9
+const student = {
+    name: "Ali",
+    age: 16,
+    grade: "10th",
+    subjects: ["Math", "Science", "History", "English"]
+};
+
+for (const property in student) {
+    console.log(`${property}: ${student[property]}`);
+}
+
+// Question 10
+const numbers = [65, 44, 12, 4];
+console.log(numbers);
+
+const newArr = numbers.map(myFunction)
+
+function myFunction(num) {
+  return num**2;
+}
+console.log(newArr);
+
+// Question 11
+function operate(num1, num2, callback) {
+    return callback(num1, num2);
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+
+const additionResult = operate(10, 57, add);
+console.log(`Addition result: ${additionResult}`);
+const subtractionResult = operate(45, 25, subtract);
+console.log(`Subtraction result: ${subtractionResult}`);
+
+// Question 12
+function delayedHello() {
+    setTimeout(() => {
+        console.log("Hello, World!");
+    }, 3000); 
+}
+delayedHello();
+
+// Question 13
+
+function CurrentTime() {
+    const intervalId = setInterval(() => {
+        const currentTime = new Date().toLocaleTimeString();
+        console.log(`Current Time: ${currentTime}`);
+    }, 2000); 
+
+    setTimeout(() => {
+        clearInterval(intervalId);
+        console.log("Stopped logging time.");
+    }, 10000); 
+}
+
+CurrentTime();
+
+// Question 14
+
+function fetchData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Data received!"); 
+            
+        }, 2000); 
+    });
+}
+
+fetchData()
+    .then(response => {
+        console.log(response); 
+    })
+    .catch(error => {
+        console.error(error); 
+    });
+
+// Question 15
+async function fetchData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Data received!"); 
+            
+        }, 2000);
+    });
+}
+async function callFetchData() {
+    try {
+        const response = await fetchData(); 
+        console.log(response);
+    } catch (error) {
+        console.error(error); 
+    }
+}
+callFetchData();
+
+// Question 16
+function calculatePower(base, exponent) {
+    return base ** exponent;
+}
+console.log(calculatePower(2, 3)); 
+
+// Question 17
+class Animal {
+    constructor(name, species) {
+        this.name = name; 
+        this.species = species;
+    }
+
+    speak() {
+        console.log(`${this.name} the ${this.species} says: ${this.getSound()}`);
+    }
+    getSound() {
+        const sounds = {
+            Dog: "Woof!",
+            Cat: "Meow!",
+        };
+        return sounds[this.species] || "some sound!"; 
+    }
+}
+
+const dog = new Animal("Buddy", "Dog");
+const cat = new Animal("Whiskers", "Cat");
+dog.speak(); 
+cat.speak(); 
+
+// Question 18
+function checkEvenOdd(number) {
+    return number % 2 === 0 ? "Even" : "Odd";
+}
+console.log(checkEvenOdd(26)); 
+console.log(checkEvenOdd(77));  
+
+// Question 19
+const user = {
+    name: "Fahad",
+    address: {
+        city: "Pakistan"
+    }
+};
+
+function logCity(user) {
+    const city = user?.address?.city; 
+    console.log(city ? `City: ${city}` : "City not available");
+}
+
+logCity(user); 
+const userWithoutAddress = { name: "Aisha" };
+logCity(userWithoutAddress); 
+const userWithoutCity = { name: "Bilal", address: {} };
+logCity(userWithoutCity); 
+
+
+
+   </script> 
+</body>
+</html>
